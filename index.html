@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Raksha Bandhan | MindForged Special</title>
+    <title>Happy Raksha Bandhan | MindForged Official</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,16 +17,16 @@
     <style>
         :root {
             --bg-main: #FAFAFC;
-            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card: rgba(255, 255, 255, 0.9);
             --gold-primary: #D4AF37;
-            --gold-light: #F3E5AB;
+            --gold-light: #F9F1D8;
             --gold-dark: #AA7C11;
             --crimson: #C41E3A;
             --text-dark: #1A1A1A;
             --text-muted: #555555;
-            --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.06);
-            --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.25);
-            --border-gold: 1px solid rgba(212, 175, 55, 0.3);
+            --shadow-soft: 0 20px 45px rgba(0, 0, 0, 0.06);
+            --shadow-gold: 0 12px 35px rgba(212, 175, 55, 0.25);
+            --border-gold: 1px solid rgba(212, 175, 55, 0.35);
         }
 
         * {
@@ -42,21 +42,132 @@
             color: var(--text-dark);
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.04) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(196, 30, 58, 0.03) 0%, transparent 40%);
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(196, 30, 58, 0.04) 0%, transparent 45%);
         }
 
-        /* Ambient Sound / Branding Header */
+        /* --- FULLSCREEN CINEMATIC INTRO OVERLAY --- */
+        #cinematicIntro {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 15, 0.88);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        #cinematicIntro.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .intro-brand {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInText 1s 0.3s forwards;
+        }
+
+        .intro-stage {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* REALISTIC HAND GRAPHICS */
+        .hand-brother {
+            position: absolute;
+            left: -300px;
+            width: 320px;
+            height: 140px;
+            animation: moveBrotherArm 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hand-sister {
+            position: absolute;
+            right: -300px;
+            width: 340px;
+            height: 160px;
+            animation: moveSisterArm 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes moveBrotherArm {
+            0% { transform: translateX(0); opacity: 0; }
+            40% { transform: translateX(250px); opacity: 1; }
+            100% { transform: translateX(280px); opacity: 1; }
+        }
+
+        @keyframes moveSisterArm {
+            0% { transform: translateX(0); opacity: 0; }
+            40% { transform: translateX(-230px); opacity: 1; }
+            70% { transform: translateX(-250px) rotate(-4deg); opacity: 1; }
+            100% { transform: translateX(-245px) rotate(0deg); opacity: 1; }
+        }
+
+        .intro-sparkle-burst {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #FFD700 0%, rgba(255,215,0,0) 75%);
+            opacity: 0;
+            animation: triggerSparkle 1.2s 3.2s forwards;
+        }
+
+        @keyframes triggerSparkle {
+            0% { transform: scale(0.1); opacity: 0; }
+            50% { transform: scale(3); opacity: 0.9; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .intro-caption {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: #FFFFFF;
+            margin-top: 30px;
+            text-shadow: 0 0 20px var(--gold-primary);
+            opacity: 0;
+            animation: fadeInText 1s 3s forwards;
+        }
+
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+
+        .tap-prompt {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        /* --- HEADER & BRANDING --- */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 5%;
+            padding: 18px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: rgba(250, 250, 252, 0.8);
+            background: rgba(250, 250, 252, 0.85);
             backdrop-filter: blur(15px);
             border-bottom: var(--border-gold);
         }
@@ -75,8 +186,8 @@
         }
 
         .brand-logo span {
-            font-size: 0.8rem;
-            letter-spacing: 5px;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
             display: block;
             color: var(--text-muted);
             -webkit-text-fill-color: initial;
@@ -84,136 +195,47 @@
             font-weight: 600;
         }
 
-        .music-btn {
-            background: #ffffff;
-            border: var(--border-gold);
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: var(--shadow-soft);
+        .music-indicator {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
+            gap: 10px;
+            background: #FFFFFF;
+            border: var(--border-gold);
+            padding: 8px 20px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-soft);
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--gold-dark);
-            transition: all 0.3s ease;
-        }
-
-        .music-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-gold);
-            background: var(--gold-primary);
-            color: #fff;
-        }
-
-        /* --- POPUP MODAL (GENDER SELECTOR) --- */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 15, 20, 0.75);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        .modal-overlay.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .modal-card {
-            background: #FFFFFF;
-            padding: 40px 30px;
-            border-radius: 24px;
-            width: 90%;
-            max-width: 480px;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2), 0 0 40px rgba(212, 175, 55, 0.3);
-            border: 2px solid var(--gold-primary);
-            animation: modalPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes modalPop {
-            0% { transform: scale(0.7); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .modal-card h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
-
-        .modal-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-        }
-
-        .gender-options {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .gender-btn {
-            flex: 1;
-            background: #FAFAFC;
-            border: 2px solid rgba(212, 175, 55, 0.2);
-            padding: 25px 15px;
-            border-radius: 16px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .sound-wave {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
+            align-items: flex-end;
+            gap: 3px;
+            height: 14px;
         }
 
-        .gender-btn i {
-            font-size: 2.5rem;
-            transition: transform 0.3s ease;
+        .sound-wave span {
+            width: 3px;
+            height: 100%;
+            background: var(--gold-primary);
+            animation: wave 1.2s ease-in-out infinite alternate;
         }
 
-        .gender-btn.boy i { color: #2980b9; }
-        .gender-btn.girl i { color: #e84393; }
+        .sound-wave span:nth-child(2) { animation-delay: 0.2s; }
+        .sound-wave span:nth-child(3) { animation-delay: 0.4s; }
 
-        .gender-btn span {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--text-dark);
+        @keyframes wave {
+            0% { height: 20%; }
+            100% { height: 100%; }
         }
 
-        .gender-btn:hover {
-            transform: translateY(-8px) scale(1.03);
-            border-color: var(--gold-primary);
-            box-shadow: var(--shadow-gold);
-            background: #ffffff;
-        }
-
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION WITH BIG 3D SVG RAKHI --- */
         .hero {
             min-height: 100vh;
-            padding: 140px 20px 60px 20px;
+            padding: 130px 20px 60px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -237,15 +259,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.04); opacity: 0.85; }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .hero h1 {
             font-family: 'Cinzel', serif;
-            font-size: 3.5rem;
+            font-size: 3.6rem;
             line-height: 1.2;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             background: linear-gradient(135deg, #1A1A1A 0%, #AA7C11 50%, #C41E3A 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -253,25 +275,25 @@
 
         .hero-subtitle {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
+            font-size: 3rem;
             color: var(--crimson);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .hero-text {
-            max-width: 650px;
-            font-size: 1.1rem;
+            max-width: 680px;
+            font-size: 1.05rem;
             color: var(--text-muted);
             line-height: 1.8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
-        /* 3D RAKHI DISPLAY */
+        /* RESTORED BIG 3D RAKHI ARTWORK */
         .rakhi-stage {
             position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 20px 0;
+            width: 290px;
+            height: 290px;
+            margin: 20px 0 30px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -280,10 +302,10 @@
 
         .rakhi-aura {
             position: absolute;
-            width: 260px;
-            height: 260px;
+            width: 270px;
+            height: 270px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, rgba(255,255,255,0) 70%);
             animation: rotateAura 12s linear infinite;
         }
 
@@ -294,16 +316,16 @@
         }
 
         .rakhi-svg {
-            width: 220px;
-            height: 220px;
-            filter: drop-shadow(0 15px 25px rgba(170, 124, 17, 0.3));
+            width: 230px;
+            height: 230px;
+            filter: drop-shadow(0 18px 30px rgba(170, 124, 17, 0.35));
             animation: floatRakhi 4s ease-in-out infinite;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .rakhi-svg:hover {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.12) rotate(6deg);
         }
 
         @keyframes floatRakhi {
@@ -311,31 +333,44 @@
             50% { transform: translateY(-15px) rotate(3deg); }
         }
 
-        /* --- INTERACTIVE VIRTUAL RITUAL SECTION --- */
+        /* --- REVEAL SCROLL ANIMATION CLASS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- VIRTUAL RITUAL THALI SECTION --- */
         .section-title {
             text-align: center;
             font-family: 'Cinzel', serif;
             font-size: 2.3rem;
             color: var(--text-dark);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .section-desc {
             text-align: center;
             color: var(--text-muted);
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto 50px auto;
+            font-size: 0.95rem;
         }
 
         .ritual-container {
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 80px auto;
             padding: 0 20px;
         }
 
         .thali-card {
             background: var(--bg-card);
-            border-radius: 30px;
+            border-radius: 28px;
             padding: 40px;
             border: var(--border-gold);
             box-shadow: var(--shadow-soft);
@@ -348,14 +383,12 @@
 
         .ritual-item {
             background: #FFFFFF;
-            padding: 30px 20px;
+            padding: 32px 20px;
             border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.18);
             box-shadow: 0 10px 20px rgba(0,0,0,0.03);
             transition: all 0.4s ease;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
 
         .ritual-item:hover {
@@ -368,7 +401,7 @@
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -395,10 +428,10 @@
             color: var(--text-muted);
         }
 
-        /* --- CARDS & PROMISES DECK --- */
+        /* --- PROMISES DECK GRID --- */
         .deck-container {
             max-width: 1100px;
-            margin: 80px auto;
+            margin: 90px auto;
             padding: 0 20px;
         }
 
@@ -420,7 +453,7 @@
 
         .promise-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+            box-shadow: 0 22px 45px rgba(0,0,0,0.08);
         }
 
         .card-number {
@@ -437,7 +470,7 @@
             font-family: 'Cinzel', serif;
             font-size: 1.3rem;
             color: var(--crimson);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .promise-card p {
@@ -446,11 +479,11 @@
             font-size: 0.95rem;
         }
 
-        /* --- MINDFORGED BRANDING TRIBUTE SECTION --- */
+        /* --- MINDFORGED DEDICATED TRIBUTE --- */
         .mindforged-section {
-            background: linear-gradient(135deg, #111115 0%, #1A1A24 100%);
+            background: linear-gradient(135deg, #0F0F14 0%, #1A1A24 100%);
             color: #ffffff;
-            padding: 90px 20px;
+            padding: 95px 20px;
             margin-top: 100px;
             position: relative;
             overflow: hidden;
@@ -475,18 +508,18 @@
 
         .mf-logo-large {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 900;
             letter-spacing: 6px;
             color: var(--gold-primary);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .mf-quote {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             color: var(--gold-light);
-            margin-bottom: 25px;
+            margin-bottom: 22px;
             line-height: 1.4;
         }
 
@@ -497,10 +530,10 @@
             margin-bottom: 35px;
         }
 
-        /* --- CARD GENERATOR & SHARE --- */
+        /* --- CUSTOM WISH CARD GENERATOR --- */
         .generator-section {
             max-width: 700px;
-            margin: 90px auto;
+            margin: 95px auto;
             padding: 0 20px;
             text-align: center;
         }
@@ -512,13 +545,12 @@
             padding: 40px 30px;
             box-shadow: var(--shadow-gold);
             margin-top: 30px;
-            position: relative;
         }
 
         .input-group {
             display: flex;
-            gap: 10px;
-            max-width: 450px;
+            gap: 12px;
+            max-width: 480px;
             margin: 0 auto 30px auto;
         }
 
@@ -531,11 +563,6 @@
             font-family: 'Poppins', sans-serif;
             font-size: 0.95rem;
             background: #FAFAFC;
-        }
-
-        .input-group input:focus {
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
 
         .btn-gold {
@@ -555,7 +582,6 @@
             box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
         }
 
-        /* --- FOOTER --- */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -570,64 +596,104 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.4rem; }
-            .hero-subtitle { font-size: 2rem; }
-            .modal-card { padding: 30px 20px; }
-            .gender-options { flex-direction: column; }
-            .mf-quote { font-size: 1.9rem; }
+            .hero-subtitle { font-size: 2.2rem; }
+            .intro-stage { height: 200px; }
+            .hand-brother { width: 220px; }
+            .hand-sister { width: 230px; }
+            .mf-quote { font-size: 1.8rem; }
             .input-group { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER / NAVIGATION -->
+    <!-- FULLSCREEN CINEMATIC INTRO OVERLAY -->
+    <div id="cinematicIntro" onclick="finishIntro()">
+        <div class="intro-brand">MindForged Presents</div>
+        
+        <div class="intro-stage">
+            <!-- Brother's Realistic Arm (Left) -->
+            <svg class="hand-brother" viewBox="0 0 320 140">
+                <defs>
+                    <linearGradient id="skinGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#E8B896"/>
+                        <stop offset="100%" stop-color="#D69B73"/>
+                    </linearGradient>
+                </defs>
+                <!-- Sleeve -->
+                <path d="M 0 20 L 110 20 L 105 110 L 0 110 Z" fill="#1b4965"/>
+                <!-- Wrist & Arm -->
+                <path d="M 100 30 Q 180 25 260 40 Q 290 50 310 65 Q 290 80 260 88 Q 180 95 100 90 Z" fill="url(#skinGrad1)"/>
+                <!-- Watch -->
+                <rect x="150" y="32" width="16" height="58" rx="3" fill="#222"/>
+                <circle cx="158" cy="61" r="11" fill="#D4AF37"/>
+                <circle cx="158" cy="61" r="8" fill="#FFF"/>
+            </svg>
+
+            <!-- Sister's Realistic Hand with Mehendi & Rakhi (Right) -->
+            <svg class="hand-sister" viewBox="0 0 340 160">
+                <defs>
+                    <linearGradient id="skinGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#F5CBA7"/>
+                        <stop offset="100%" stop-color="#E5AA81"/>
+                    </linearGradient>
+                </defs>
+                <!-- Arm & Hand -->
+                <path d="M 340 40 Q 230 30 160 50 Q 100 65 60 80 Q 100 100 160 105 Q 230 105 340 90 Z" fill="url(#skinGrad2)"/>
+                <!-- Intricate Mehendi Lines -->
+                <path d="M 120 68 Q 135 80 150 68 T 180 68" fill="none" stroke="#6b2d12" stroke-width="2" stroke-dasharray="3 2"/>
+                <path d="M 110 82 Q 130 95 160 82" fill="none" stroke="#6b2d12" stroke-width="2"/>
+                <!-- Bangles -->
+                <path d="M 210 38 Q 206 70 210 104" fill="none" stroke="#C41E3A" stroke-width="8"/>
+                <path d="M 224 38 Q 220 70 224 104" fill="none" stroke="#D4AF37" stroke-width="6"/>
+
+                <!-- Tying Rakhi in Hand -->
+                <path d="M 60 80 Q 20 65 0 80" fill="none" stroke="#C41E3A" stroke-width="5"/>
+                <path d="M 60 80 Q 20 95 0 80" fill="none" stroke="#D4AF37" stroke-width="4"/>
+                <circle cx="60" cy="80" r="20" fill="#C41E3A" stroke="#D4AF37" stroke-width="3"/>
+                <circle cx="60" cy="80" r="10" fill="#FFD700"/>
+            </svg>
+
+            <!-- Sparkle Burst Effect -->
+            <div class="intro-sparkle-burst"></div>
+        </div>
+
+        <div class="intro-caption">Happy Raksha Bandhan</div>
+        <div class="tap-prompt">Tap Anywhere to Enter Main Website</div>
+    </div>
+
+    <!-- HEADER -->
     <header>
         <div class="brand-logo">
             <i class="fa-solid fa-crown" style="color: var(--gold-primary);"></i>
             <div>
                 MINDFORGED
-                <span>EXCLUSIVES</span>
+                <span>OFFICIAL</span>
             </div>
         </div>
-        <button class="music-btn" id="soundToggle" onclick="toggleFestivalSound()">
-            <i class="fa-solid fa-volume-high"></i> Festival Vibes
-        </button>
+        <div class="music-indicator" onclick="toggleFestivalSound()">
+            <div class="sound-wave">
+                <span></span><span></span><span></span>
+            </div>
+            Rakhi Audio Active
+        </div>
     </header>
-
-    <!-- ENTRY GENDER POPUP MODAL -->
-    <div class="modal-overlay" id="genderModal">
-        <div class="modal-card">
-            <h2>Welcome to MindForged</h2>
-            <p>Select your identity to unlock your custom Raksha Bandhan celebration experience!</p>
-            <div class="gender-options">
-                <div class="gender-btn boy" onclick="selectGender('boy')">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <span>I am a Brother</span>
-                </div>
-                <div class="gender-btn girl" onclick="selectGender('girl')">
-                    <i class="fa-solid fa-user-ninja"></i>
-                    <span>I am a Sister</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- MAIN CONTENT -->
     <main>
-        <!-- HERO SECTION -->
+        <!-- HERO SECTION WITH RESTORED BIG 3D SVG RAKHI -->
         <section class="hero">
-            <div class="badge-tag">MindForged Special Edition</div>
-            <h1 id="dynamicHeroTitle">Happy Raksha Bandhan</h1>
-            <div class="hero-subtitle" id="dynamicSubtitle">A Bond Bound by Heart & Soul</div>
-            <p class="hero-text" id="dynamicHeroText">
+            <div class="badge-tag reveal">MindForged Rakhi Celebration</div>
+            <h1 class="reveal">Happy Raksha Bandhan</h1>
+            <div class="hero-subtitle reveal">A Sacred Vow Written in Love, Bound for Eternity</div>
+            <p class="hero-text reveal">
                 Celebrating the eternal promise of protection, unconditional warmth, infinite giggles, and lifelong support.
             </p>
 
-            <!-- 3D RAKHI ARTWORK -->
-            <div class="rakhi-stage">
+            <!-- RESTORED BIG 3D SVG RAKHI -->
+            <div class="rakhi-stage reveal">
                 <div class="rakhi-aura"></div>
                 <svg class="rakhi-svg" viewBox="0 0 200 200" onclick="triggerConfettiBurst()">
                     <!-- Thread Left -->
@@ -642,7 +708,7 @@
                     <circle cx="100" cy="100" r="45" fill="none" stroke="#D4AF37" stroke-width="2" stroke-dasharray="4 2"/>
                     <circle cx="100" cy="100" r="38" fill="#C41E3A" />
                     
-                    <!-- Floral Design -->
+                    <!-- Floral Design Petals -->
                     <g fill="#D4AF37">
                         <circle cx="100" cy="65" r="8"/>
                         <circle cx="100" cy="135" r="8"/>
@@ -657,28 +723,28 @@
                     <!-- Inner Gold Ring -->
                     <circle cx="100" cy="100" r="26" fill="#FFF8DC" stroke="#D4AF37" stroke-width="3"/>
                     
-                    <!-- Center Gem (Ruby) -->
+                    <!-- Center Ruby Gem -->
                     <circle cx="100" cy="100" r="14" fill="#8B0000" />
                     <circle cx="96" cy="96" r="4" fill="#FFFFFF" opacity="0.7"/>
                 </svg>
             </div>
-            <p style="font-size: 0.85rem; color: var(--gold-dark); margin-top: 10px; font-weight: 600;">
-                <i class="fa-solid fa-hand-pointer"></i> Click the Rakhi to release blessings!
+            <p style="font-size: 0.85rem; color: var(--gold-dark); font-weight: 600;">
+                <i class="fa-solid fa-hand-pointer"></i> Click the Rakhi to release celebration sparkles!
             </p>
         </section>
 
-        <!-- INTERACTIVE VIRTUAL RITUAL SECTION -->
-        <section class="ritual-container">
-            <h2 class="section-title">Perform Virtual Rituals</h2>
-            <p class="section-desc">Distance means nothing when hearts are connected. Click below to perform sacred Rakhi traditions digitally!</p>
+        <!-- VIRTUAL RITUAL THALI SECTION -->
+        <section class="ritual-container reveal">
+            <h2 class="section-title">Perform Sacred Rituals</h2>
+            <p class="section-desc">Experience traditional Rakhi rituals digitally with love and light!</p>
 
             <div class="thali-card">
                 <div class="ritual-item" onclick="performRitual('tilak')">
                     <div class="ritual-icon">
                         <i class="fa-solid fa-hands-praying"></i>
                     </div>
-                    <h3>Apply Tilak</h3>
-                    <p>Shower auspicious blessings and long life prayers.</p>
+                    <h3>Apply Royal Tilak</h3>
+                    <p>Shower divine blessings for long life and good fortune.</p>
                 </div>
 
                 <div class="ritual-item" onclick="performRitual('rakhi')">
@@ -686,32 +752,46 @@
                         <i class="fa-solid fa-ribbon"></i>
                     </div>
                     <h3>Tie Sacred Thread</h3>
-                    <p>Bind the unbreakable bond of love and protection.</p>
+                    <p>Bind the unbreakable bond of trust and protection.</p>
                 </div>
 
                 <div class="ritual-item" onclick="performRitual('sweets')">
                     <div class="ritual-icon">
                         <i class="fa-solid fa-cookie-bite"></i>
                     </div>
-                    <h3>Offer Sweets</h3>
-                    <p>Share sweet treats & laughter across the miles.</p>
+                    <h3>Offer Virtual Sweets</h3>
+                    <p>Share sweet treats and laughter across the miles.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PROMISES & BLESSINGS DECK -->
+        <!-- PROMISES DECK -->
         <section class="deck-container">
-            <h2 class="section-title">Pillars of Our Bond</h2>
-            <p class="section-desc">What makes this sacred relationship so priceless.</p>
+            <h2 class="section-title reveal">Pillars of Our Bond</h2>
+            <p class="section-desc reveal">What makes this sacred relationship so priceless.</p>
 
-            <div class="cards-grid" id="dynamicCardsGrid">
-                <!-- Dynamically populated based on gender -->
+            <div class="cards-grid">
+                <div class="promise-card reveal">
+                    <div class="card-number">01</div>
+                    <h4>Unshakable Shield</h4>
+                    <p>Standing as an immovable wall through every storm, supporting every dream with unconditional faith.</p>
+                </div>
+                <div class="promise-card reveal">
+                    <div class="card-number">02</div>
+                    <h4>Endless Memories</h4>
+                    <p>From silly childhood fights over small things to becoming each other's deepest secret keepers for life.</p>
+                </div>
+                <div class="promise-card reveal">
+                    <div class="card-number">03</div>
+                    <h4>A Lifelong Vow</h4>
+                    <p>No matter where life takes us, the sacred thread of love grows stronger with every passing day.</p>
+                </div>
             </div>
         </section>
 
-        <!-- MINDFORGED BRANDING TRIBUTE -->
+        <!-- MINDFORGED DEDICATED TRIBUTE SECTION -->
         <section class="mindforged-section">
-            <div class="mf-content">
+            <div class="mf-content reveal">
                 <div class="mf-logo-large">MINDFORGED</div>
                 <div class="mf-quote">"Stronger than distance, deeper than words, timeless as forever."</div>
                 <p class="mf-text">
@@ -721,8 +801,8 @@
             </div>
         </section>
 
-        <!-- LIVE CUSTOMIZABLE CARD GENERATOR -->
-        <section class="generator-section">
+        <!-- LIVE CUSTOM WISH CARD GENERATOR -->
+        <section class="generator-section reveal">
             <h2 class="section-title">Create Personalized Wish</h2>
             <p class="section-desc">Type your name below to create a custom MindForged Raksha Bandhan card to share with family!</p>
 
@@ -732,14 +812,14 @@
             </div>
 
             <div class="card-preview-box">
-                <div style="font-family: 'Cinzel', serif; color: var(--gold-dark); letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 15px;">
-                    MINDFORGED EXCLUSIVE CARD
+                <div style="font-family: 'Cinzel', serif; color: var(--gold-dark); letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 12px;">
+                    MINDFORGED SPECIAL GREETING
                 </div>
                 <h3 id="cardPreviewTitle" style="font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: var(--crimson);">
                     Happy Raksha Bandhan
                 </h3>
                 <p id="cardPreviewMessage" style="color: var(--text-dark); margin: 20px 0; line-height: 1.6;">
-                    Wishing you a life filled with laughter, protection, prosperity, and endless joy!
+                    May your life be filled with endless laughter, protection, prosperity, and joy!
                 </p>
                 <div id="cardPreviewSender" style="font-weight: 700; font-size: 1.1rem; color: var(--gold-dark);">
                     - Sent with Love
@@ -754,127 +834,98 @@
         <p style="font-size: 0.8rem; margin-top: 5px;">Happy Raksha Bandhan to all our amazing followers!</p>
     </footer>
 
-    <!-- AUDIO SYNTHESIZER & INTERACTIVE JAVASCRIPT -->
+    <!-- AUDIO SYNTHESIZER & SCROLL JS -->
     <script>
-        let selectedGender = null;
         let audioCtx = null;
+        let isAudioPlaying = false;
+        let introFinished = false;
 
-        // Sound Effects generator using Web Audio API
-        function playTone(freq, type = 'sine', duration = 0.3) {
+        // AUTOMATIC BACKGROUND FESTIVAL TUNE (Web Audio Synthesizer - INCREASED VOLUME)
+        function startFestivalAudio() {
+            if (isAudioPlaying) return;
             try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch (e) { console.log('Audio disabled'); }
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                isAudioPlaying = true;
+
+                // Indian Festival Raga / Melody Array (Flute / Chime Notes)
+                const notes = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50, 880.00, 783.99, 659.25, 587.33];
+                let noteIndex = 0;
+
+                function playNextNote() {
+                    if (!audioCtx) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(notes[noteIndex], audioCtx.currentTime);
+
+                    // INCREASED VOLUME FROM 0.04 TO 0.22 FOR LOUD & CLEAR FESTIVE TUNE
+                    gain.gain.setValueAtTime(0.22, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.9);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.9);
+
+                    noteIndex = (noteIndex + 1) % notes.length;
+                    setTimeout(playNextNote, 550);
+                }
+
+                playNextNote();
+            } catch (e) {
+                console.log('Audio Autoplay restriction bypass active.');
+            }
         }
+
+        // Finish Intro Animation Automatically or On Tap
+        function finishIntro() {
+            if (introFinished) return;
+            introFinished = true;
+
+            const introOverlay = document.getElementById('cinematicIntro');
+            introOverlay.classList.add('fade-out');
+
+            startFestivalAudio();
+            triggerConfettiBurst();
+        }
+
+        // Auto timer to finish intro after hand tying animation completes (approx 4.5s)
+        setTimeout(() => {
+            finishIntro();
+        }, 4600);
 
         function toggleFestivalSound() {
-            playTone(523.25, 'triangle', 0.4);
-            setTimeout(() => playTone(659.25, 'triangle', 0.4), 150);
-            setTimeout(() => playTone(783.99, 'triangle', 0.6), 300);
+            startFestivalAudio();
             triggerConfettiBurst();
-        }
-
-        // Gender Selection & Dynamic Rendering
-        function selectGender(gender) {
-            selectedGender = gender;
-            playTone(440, 'sine', 0.2);
-
-            // Hide Modal
-            document.getElementById('genderModal').classList.add('hide');
-
-            // Trigger Celebration
-            triggerConfettiBurst();
-
-            // Populate Dynamic Text
-            const heroTitle = document.getElementById('dynamicHeroTitle');
-            const subtitle = document.getElementById('dynamicSubtitle');
-            const heroText = document.getElementById('dynamicHeroText');
-            const cardsGrid = document.getElementById('dynamicCardsGrid');
-
-            if (gender === 'boy') {
-                // User is a Brother -> Wish from Sister perspective
-                heroTitle.innerText = "Happy Raksha Bandhan, Dearest Brother!";
-                subtitle.innerText = "To My Lifelong Protector & Constant Companion";
-                heroText.innerText = "Thank you for always standing as my shield, supporting my dreams, and filling my life with warmth and protection. You are truly irreplaceable!";
-
-                cardsGrid.innerHTML = `
-                    <div class="promise-card">
-                        <div class="card-number">01</div>
-                        <h4>Unshakable Shield</h4>
-                        <p>Thank you for always having my back through every storm and supporting every dream I chase with confidence.</p>
-                    </div>
-                    <div class="promise-card">
-                        <div class="card-number">02</div>
-                        <h4>Endless Teasing & Love</h4>
-                        <p>From silly arguments over the TV remote to heartfelt late-night advice, our memories are my absolute favorite.</p>
-                    </div>
-                    <div class="promise-card">
-                        <div class="card-number">03</div>
-                        <h4>A Sister's Blessing</h4>
-                        <p>May your path be blessed with boundless success, happiness, peace, and good health today and forever.</p>
-                    </div>
-                `;
-            } else {
-                // User is a Sister -> Wish from Brother perspective
-                heroTitle.innerText = "Happy Raksha Bandhan, Dearest Sister!";
-                subtitle.innerText = "To the Sparkle & Grace of My Life";
-                heroText.innerText = "Thank you for filling our world with laughter, caring for me like a mentor, and bringing endless warmth to my life. I promise to protect your smile forever!";
-
-                cardsGrid.innerHTML = `
-                    <div class="promise-card">
-                        <div class="card-number">01</div>
-                        <h4>A Vow of Protection</h4>
-                        <p>No matter where life takes us, I promise to stand by your side, protect your happiness, and support your journey.</p>
-                    </div>
-                    <div class="promise-card">
-                        <div class="card-number">02</div>
-                        <h4>Pure Radiance</h4>
-                        <p>Your kindness, laughter, and loving care make every day brighter. Thank you for being my constant guiding light.</p>
-                    </div>
-                    <div class="promise-card">
-                        <div class="card-number">03</div>
-                        <h4>A Brother's Promise</h4>
-                        <p>Whenever you need a shoulder to lean on or a secret keeper, know that your brother is just a call away, always.</p>
-                    </div>
-                `;
-            }
         }
 
         // Confetti Burst Trigger
         function triggerConfettiBurst() {
-            playTone(880, 'sine', 0.3);
             if (typeof confetti === 'function') {
                 confetti({
-                    particleCount: 80,
-                    spread: 70,
+                    particleCount: 90,
+                    spread: 80,
                     origin: { y: 0.6 },
-                    colors: ['#D4AF37', '#C41E3A', '#F3E5AB', '#FFFFFF']
+                    colors: ['#D4AF37', '#C41E3A', '#F9F1D8', '#FFFFFF']
                 });
             }
         }
 
-        // Ritual Actions
+        // Perform Virtual Rituals
         function performRitual(type) {
             triggerConfettiBurst();
             if(type === 'tilak') {
-                alert("✨ Red Tilak applied with prayers for long life, glory, and good fortune!");
+                alert("✨ Red Tilak applied with holy blessings for long life and good fortune!");
             } else if(type === 'rakhi') {
-                alert("🧵 Sacred Rakhi thread tied smoothly! A bond locked for eternity!");
+                alert("🧵 Sacred Rakhi thread tied tightly! The promise of protection is locked forever!");
             } else if(type === 'sweets') {
-                alert("🍬 Delicious Virtual Sweets served! May your bond remain sweet forever!");
+                alert("🍬 Virtual Sweets served! May your sibling bond stay forever sweet!");
             }
         }
 
-        // Live Custom Card Generator
+        // Custom Card Generator
         function updateCustomCard() {
             const name = document.getElementById('userNameInput').value.trim();
             const senderElement = document.getElementById('cardPreviewSender');
@@ -884,6 +935,21 @@
                 senderElement.innerText = `- Sent with Love`;
             }
         }
+
+        // FAST & SMOOTH SCROLL REVEAL ANIMATION (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.12
+        });
+
+        revealElements.forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
